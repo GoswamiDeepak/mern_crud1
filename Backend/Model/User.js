@@ -13,6 +13,9 @@ const userSchema = new mongoose.Schema({
     useraddress: {
         type: 'String',
     },
+    photo : {
+        type: 'String',
+    }
 });
 
 const User = mongoose.model('User', userSchema);

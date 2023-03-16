@@ -7,6 +7,7 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors())
 app.use(User);
+app.use("/upload/",express.static("./uploads"));
 
 app.listen(PORT, function(){
     console.log(`Listening on ${PORT}`);

@@ -65,6 +65,9 @@ const Viewuser = () => {
                                         <td>{user.useremail}</td>
                                         <td>{user.usermobile}</td>
                                         <td>{user.useraddress}</td>
+                                        <td>
+                                            <img src={`http://localhost:5000/upload/${user.photo}`} className="img-fluid" width="100" height="75" />
+                                        </td>
                                         <td className="d-flex justify-content-around align-items-center">
                                             <Link to={`/edituser/${user._id}`}>
                                                 <button className="btn btn-warning btn-sm text-white">

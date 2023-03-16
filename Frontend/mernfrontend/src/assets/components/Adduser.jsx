@@ -10,6 +10,7 @@ const Adduser = () => {
         email: '',
         address: '',
     });
+    const [image, setImage] = useState();
 
     const userData = (e) => {
         let name = e.target.name;
@@ -20,17 +21,34 @@ const Adduser = () => {
         });
     };
 
+    const fileupload = (e) => {
+        console.log(e.target.files)
+        setImage(e.target.files[0])
+    }
+    console.log(image)
     const addUserData = async (e) => {
         e.preventDefault();
         const api = `http://localhost:5000/addnewuser`;
         try {
-            const responce = await axios.post(api, {
-                username: user.name,
-                usermobile: user.phone,
-                useremail: user.email,
-                useraddress: user.address,
-            });
+            let formdata = new FormData();
+            formdata.append("photo", image);
+            formdata.append("username", user.name);
+            formdata.append("usermobile", user.phone);
+            formdata.append("useremail", user.email);
+            formdata.append("useraddress", user.address);
+            const config = {
+                headers : {
+                    "Content-Type" : "multipart/form-data"
+                }
+            }
 
+            // const responce = await axios.post(api, {
+            //     username: user.name,
+            //     usermobile: user.phone,
+            //     useremail: user.email,
+            //     useraddress: user.address,
+            // });
+            const responce = await axios.post(api, formdata, config);
             if (responce.status == 200) {
                 setUser({
                     name: '',
@@ -99,6 +117,7 @@ const Adduser = () => {
                             onChange={userData}
                         />
                     </div>
+                    <input type="file" name="photo" onChange={fileupload} />
                     <button
                         className="btn btn-danger w-100"
                         onClick={addUserData}>
